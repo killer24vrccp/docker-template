@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: my_nginx
+    restart: always
+    ports:
+      - "8080:80"  # <== for HTTP
+      - "8443:443" # <== for HTTPS
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+      - ./html:/usr/share/nginx/html
+    environment:
+      - DOMAIN_NAME=example.com
